@@ -1,5 +1,5 @@
 import { Provider } from 'react-redux';
-import { supabase } from './client';
+//import { supabase } from './client';
 import store from './store/store';
 import Navbar from './components/Navbar';
 import { AppStyles } from './components/AppStyles';
@@ -14,26 +14,26 @@ const App = () => {
   // Retrieve favoriteEpisodes and toggleFavorite from the useFavoriteEpisodes hook
   const { favoriteEpisodes, toggleFavorite } = useFavoriteEpisodes();
 
-  const { formData, setformData } = useState({
-    fullname: '', email: '', password: ''
-  })
+//   const { formData, setformData } = useState({
+//     fullname: '', email: '', password: ''
+//   })
 
-console.log(formData)
+// console.log(formData)
 
-  function handleChange(event){
-    setformData{(prevformData) => {
-        return {
-          ...prevformData,
-          [event.target.name]:event.target.value
-    }
-    }
+//   function handleChange(event){
+//     setformData{(prevformData) => {
+//         return {
+//           ...prevformData,
+//           [event.target.name]:event.target.value
+//     }
+//     }
 
-    }
-  }
+//     }
+//   }
   return (
     <AppStyles>
 
-      <div>
+      {/* <div>
         <form   onSubmit={handleSubmit}>
           <input
             placeholder='Fullname'
@@ -53,7 +53,7 @@ console.log(formData)
 
           <button type='Submit' />
         </form>
-      </div>
+      </div> */}
 
 
 

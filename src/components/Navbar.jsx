@@ -22,7 +22,7 @@ const Navbar = () => {
       <div className="navbar-container">
         <img
           className="navbar-logo"
-          src="https://marketplace.canva.com/EAE4l8bNqKk/2/0/1600w/canva-yellow-simple-monoline-podcast-logo-0D4iJscwJ0Y.jpg"
+          src="https://www.canva.com/design/DAFqS5tMqPY/F5B2x2AG8t_UWDt50vSIcg/edit?utm_content=DAFqS5tMqPY&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton"
           alt="Godi"
           onClick={handleGoHome}
         />
