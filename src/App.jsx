@@ -9,60 +9,35 @@ import DefaultList from './components/DefaultList';
 import FavoritesList from './components/FavoritesList';
 import { useFavoriteEpisodes } from './handlers/favoritesHandler.Jsx';
 import React, { useState } from 'react';
+import { supabase } from './components/Supabase ';
+import Supa from './components/Supabase';
+
 
 const App = () => {
+const [signUpState, setSignUpState] = useState('SignPhase')
+
   // Retrieve favoriteEpisodes and toggleFavorite from the useFavoriteEpisodes hook
   const { favoriteEpisodes, toggleFavorite } = useFavoriteEpisodes();
 
-//   const { formData, setformData } = useState({
-//     fullname: '', email: '', password: ''
-//   })
+  React.useEffect(() => {
+    const authListener = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === "SIGNED_IN" && session) {
+        console.log("User signed in successfully:", session.user.email);
+        setSignUpState('startPhase')
+      }
+    });
 
-// console.log(formData)
+    return () => {
+      authListener.unsubscribe;
+    };
+  }, []);
 
-//   function handleChange(event){
-//     setformData{(prevformData) => {
-//         return {
-//           ...prevformData,
-//           [event.target.name]:event.target.value
-//     }
-//     }
 
-//     }
-//   }
   return (
     <AppStyles>
+      {signUpState ==='SignPhase' && <Supa />}
 
-      {/* <div>
-        <form   onSubmit={handleSubmit}>
-          <input
-            placeholder='Fullname'
-            name='fullname'
-            onChange={handleChange}
-          />
-          <input
-            placeholder='Email'
-            name='email'
-            onChange={handleChange}
-          />
-          <input
-            placeholder='Password'
-            name='password'
-            onChange={handleChange}
-          />
-
-          <button type='Submit' />
-        </form>
-      </div> */}
-
-
-
-
-
-
-
-
-      <div className="app">
+      { signUpState ==='startPhase' && <div className="app">
         <Router>
           <Provider store={store}>
             <AppStyles>
@@ -88,6 +63,7 @@ const App = () => {
           </Provider>
         </Router>
       </div>
+      }
     </AppStyles>
   );
 };
