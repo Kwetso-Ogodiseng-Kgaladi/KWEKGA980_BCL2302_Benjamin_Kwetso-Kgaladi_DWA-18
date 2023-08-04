@@ -14,7 +14,7 @@ return(
   <Auth
     supabaseClient={supabase}
     appearance={{ theme: ThemeSupa }}
-    theme="dark"
+    theme="light"
  />
  </>
   )
