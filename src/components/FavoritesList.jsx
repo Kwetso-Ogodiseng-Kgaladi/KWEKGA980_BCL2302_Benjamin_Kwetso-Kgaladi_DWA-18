@@ -46,6 +46,7 @@ const FavoritesList = ({
               (episode) => episode.episode === Number(episodeID)
             ),
           };
+
           episodes.push(episodeObject);
         }
 

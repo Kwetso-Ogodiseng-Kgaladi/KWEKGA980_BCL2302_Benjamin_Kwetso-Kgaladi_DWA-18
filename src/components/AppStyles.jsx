@@ -278,7 +278,7 @@ export const SinglePodcastStyles = styled.div`
   .show-description {
     font-size: 16px; // Set the font size for the show description
     margin-bottom: 20px; // Apply bottom margin to the show description
-    color: #fff; // Set the text color for the show description
+    color: #31C48D; // Set the text color for the show description
   }
 
   .single-show-image {
@@ -406,6 +406,7 @@ export const FooterStyles = styled.footer`
   .footer-extra {
     font-size: 13px; // Set the font size for the .footer-extra class
   }
+  
 `;
 
 export const ShowFavoritePodcastStyles = styled.div`
@@ -444,38 +445,7 @@ export const ShowFavoritePodcastStyles = styled.div`
   }
 `;
 
-export const CarouselStyles = styled.div`
-  width: 100%;
-  border-radius: 10px;
-  padding: 10px;
-  display: flex;
-  flex-direction: row;
 
-  .carousel-slide {
-    /* Change flex-direction to row */
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 20px;
-  }
-
-  .carousel-image {
-    max-width: 200px;
-    height: auto;
-    margin-right: 10px;
-    cursor: pointer; /* Add margin-right to create space between slides */
-  }
-
-  .show-title {
-    font-size: 20px;
-    margin-bottom: 5px;
-  }
-
-  .show-seasons {
-    font-size: 14px;
-    color: #888;
-  }
-`;
 // export const prevArrowStyles = {
 //   position: 'absolute',
 //   top: '50%',

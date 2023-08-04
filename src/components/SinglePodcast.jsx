@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import MoonLoader from 'react-spinners/MoonLoader';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart, faPlay } from '@fortawesome/free-solid-svg-icons';
+import { faPlay } from '@fortawesome/free-solid-svg-icons';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import Seasons from './Seasons';
+
+
 import Button from './Button';
 import { SinglePodcastStyles } from './AppStyles';
-import { setSelectedEpisode } from '../store/reducers/reducers';
+import { setSelectedEpisode } from '../store/actions/actions';
 import PodcastPlayer from './PodCastPlayer';
 
 const SinglePodcast = ({
@@ -16,7 +19,7 @@ const SinglePodcast = ({
   favoriteEpisodes,
 }) => {
   const [showData, setShowData] = useState(null);
-  const [, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
   const [selectedSeason, setSelectedSeason] = useState(1);
   const [selectedSeasonData, setSelectedSeasonData] = useState(null);
   const dispatch = useDispatch();
@@ -88,13 +91,20 @@ const SinglePodcast = ({
     return false;
   };
 
+  if (!showData) {
+    return (
+      <div className="loading-spinner">
+        <MoonLoader color="black" loading={loading} size={60} />
+      </div>
+    );
+  }
+
   const { title, description, seasons } = showData;
   const selectedSeasonImage =
     seasons.find((season) => season.season === selectedSeason)?.image ||
     showData.image ||
     '';
 
-  
   return (
     <SinglePodcastStyles>
       <Button variant="primary" className="go-back-btn" onClick={goBack}>

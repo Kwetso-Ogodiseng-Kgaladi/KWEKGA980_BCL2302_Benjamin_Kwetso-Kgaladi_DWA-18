@@ -9,13 +9,14 @@ import DefaultList from './components/DefaultList';
 import FavoritesList from './components/FavoritesList';
 import { useFavoriteEpisodes } from './handlers/favoritesHandler.Jsx';
 import React, { useState } from 'react';
-import { supabase } from './components/Supabase ';
+//import { StyleSheetManager } from 'styled-components';
+import { supabase } from './components/Supabase';
 import Supa from './components/Supabase';
 
 
 const App = () => {
-const [signUpState, setSignUpState] = useState('SignPhase')
-
+  const [signUpState, setSignUpState] = useState('SignPhase')
+  //const [signOutstate, setSignOutState] = useState('signOutPhase')
   // Retrieve favoriteEpisodes and toggleFavorite from the useFavoriteEpisodes hook
   const { favoriteEpisodes, toggleFavorite } = useFavoriteEpisodes();
 
@@ -24,7 +25,12 @@ const [signUpState, setSignUpState] = useState('SignPhase')
       if (event === "SIGNED_IN" && session) {
         console.log("User signed in successfully:", session.user.email);
         setSignUpState('startPhase')
+      } else if (event === "SIGNED_OUT") {
+        // User signed out
+        console.log("User signed out");
+        setSignUpState(false);
       }
+
     });
 
     return () => {
@@ -32,12 +38,25 @@ const [signUpState, setSignUpState] = useState('SignPhase')
     };
   }, []);
 
+  const handleSignOut = async () => {
+    try {
+      await supabase.auth.signOut();
+      // The "SIGNED_OUT" event will trigger the useEffect and setIsLoggedIn(false)
+    } catch (error) {
+      console.error("Error signing out:", error.message);
+    }
+  };
 
   return (
-    <AppStyles>
-      {signUpState ==='SignPhase' && <Supa />}
 
-      { signUpState ==='startPhase' && <div className="app">
+    //<StyleSheetManager shouldForwardProp={(prop) => !prop.startsWith('variant')}>
+      
+    <AppStyles>
+      {signUpState === 'SignPhase' && <Supa />}
+
+      {signUpState === 'startPhase' && <div className="app">
+
+        
         <Router>
           <Provider store={store}>
             <AppStyles>
@@ -65,6 +84,8 @@ const [signUpState, setSignUpState] = useState('SignPhase')
       </div>
       }
     </AppStyles>
+   
+//</StyleSheetManager>
   );
 };
 
