@@ -444,26 +444,25 @@ export const ShowFavoritePodcastStyles = styled.div`
     padding: 10px; // Apply padding to the form input
   }
 `;
-
-
+ 
 // export const prevArrowStyles = {
-//   position: 'absolute',
-//   top: '50%',
-//   left: '-30px',
-//   transform: 'translateY(-50%)',
-//   zIndex: 1,
-//   color: '#000',
-//   fontSize: '2rem',
-//   cursor: 'pointer',
-// };
+// //   position: 'absolute',
+// //   top: '50%',
+// //   left: '-30px',
+// //   transform: 'translateY(-50%)',
+// //   zIndex: 1,
+// //   color: '#000',
+// //   fontSize: '2rem',
+// //   cursor: 'pointer',
+// // };
 
-// export const nextArrowStyles = {
-//   position: 'absolute',
-//   top: '50%',
-//   right: '-30px',
-//   transform: 'translateY(-50%)',
-//   zIndex: 1,
-//   color: '#000',
-//   fontSize: '2rem',
-//   cursor: 'pointer',
-// };
+// // export const nextArrowStyles = {
+// //   position: 'absolute',
+// //   top: '50%',
+// //   right: '-30px',
+// //   transform: 'translateY(-50%)',
+// //   zIndex: 1,
+// //   color: '#000',
+// //   fontSize: '2rem',
+// //   cursor: 'pointer',
+//  };
