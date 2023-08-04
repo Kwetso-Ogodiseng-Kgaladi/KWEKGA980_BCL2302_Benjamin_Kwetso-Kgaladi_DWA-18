@@ -8,7 +8,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import DefaultList from './components/DefaultList';
 import FavoritesList from './components/FavoritesList';
 import { useFavoriteEpisodes } from './handlers/favoritesHandler.Jsx';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 //import { StyleSheetManager } from 'styled-components';
 import { supabase } from './components/Supabase';
 import Supa from './components/Supabase';
@@ -45,7 +45,35 @@ const App = () => {
     } catch (error) {
       console.error("Error signing out:", error.message);
     }
-  };
+  }; 
+
+  const[fetchError, setFetchError] = useState(null)
+  const [smoothies, setSmoothies] = useState(null)
+
+
+useEffect(() => {
+const fetcchSmoothies = async () => {
+  const { data, error } = await supabase
+  .from('podcast')
+  .select()
+
+    if (error) {
+      setFetchError('Could not fetch the smoothies')
+      setSmoothies(null)
+      console.log(error)
+    }
+if (data) {
+  setSmoothies(data)
+  setFetchError(null)
+}
+
+}
+
+fetcchSmoothies()
+
+}, [])
+
+
 
   return (
 
@@ -56,7 +84,20 @@ const App = () => {
 
       {signUpState === 'startPhase' && <div className="app">
 
-        
+        {/* {fetchError && (<p>{fetchError}</p>)}
+        {smoothies && (
+          <div classname="smoothies">
+            {smoothies.map(smoothies => (
+            <>
+              <p>{smoothies.title}</p>
+              <p>{smoothies.description}</p>
+              <p>{smoothies.episode}</p>
+              
+              </>
+            ))}
+            </div>
+        )} */}
+
         <Router>
           <Provider store={store}>
             <AppStyles>
