@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay } from '@fortawesome/free-solid-svg-icons';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import Seasons from './Seasons';
+import { supabase } from './Supabase';
 
 
 import Button from './Button';
@@ -145,7 +146,23 @@ const SinglePodcast = ({
                       <AiFillHeart
                         className="favourite-icon"
                         onClick={() =>
+                          {
+
                           toggleFavorite(episode, selectedSeasonData, showData)
+                            
+                            const rite= async () => {
+                            
+                              const { data, error } = await supabase
+                                .from('podcast')
+                                .insert({
+                                  title: episode.title,
+                                 description: episode.description, 
+                                episode: episode.episode,
+                                audio: episode.file
+                                })
+                            }
+                            rite()
+                          }
                         }
                       />
                     ) : (

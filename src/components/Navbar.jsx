@@ -22,11 +22,11 @@ const Navbar = () => {
       <div className="navbar-container">
         <img
           className="navbar-logo"
-          src="https://www.canva.com/design/DAFqS5tMqPY/F5B2x2AG8t_UWDt50vSIcg/edit?utm_content=DAFqS5tMqPY&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton"
+          src="https://99designs-blog.imgix.net/blog/wp-content/uploads/2017/04/attachment_82147568-e1492537983742.jpg?auto=format&q=60&fit=max&w=930"
           alt="Godi"
           onClick={handleGoHome}
         />
-        <Button variant="yellow" onClick={handleFavoritesClick}>
+        <Button variant="blue" onClick={handleFavoritesClick}>
           Favorites
         </Button>
       </div>
