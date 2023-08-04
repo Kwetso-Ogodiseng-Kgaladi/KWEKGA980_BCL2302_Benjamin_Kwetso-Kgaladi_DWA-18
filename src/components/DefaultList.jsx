@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import SinglePodcast from './SinglePodcast';
 import PodcastList from './PodcastList';
 import { useFavoriteEpisodes } from '../handlers/favoritesHandler.Jsx';
-
+ 
 const DefaultList = () => {
   // State to keep track of the selected podcast ID
   const [selectedPodcastId, setSelectedPodcastId] = useState(null);
