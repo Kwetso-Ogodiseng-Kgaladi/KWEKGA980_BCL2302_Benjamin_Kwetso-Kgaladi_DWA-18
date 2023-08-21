@@ -6,19 +6,12 @@ import { faPlay } from '@fortawesome/free-solid-svg-icons';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import Seasons from './Seasons';
 import { supabase } from './Supabase';
-
-
 import Button from './Button';
 import { SinglePodcastStyles } from './AppStyles';
 import { setSelectedEpisode } from '../store/actions/actions';
 import PodcastPlayer from './PodCastPlayer';
 
-const SinglePodcast = ({
-  show,
-  goBack,
-  toggleFavorite,
-  favoriteEpisodes,
-}) => {
+const SinglePodcast = ({ show, goBack, toggleFavorite, favoriteEpisodes,}) => { //Destructured props
   const [showData, setShowData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [selectedSeason, setSelectedSeason] = useState(1);
@@ -26,34 +19,33 @@ const SinglePodcast = ({
   const dispatch = useDispatch();
 
   useEffect(() => {
+    // use fetch to get data from API
     const fetchShowDetails = async () => {
       try {
         const response = await fetch(
           `https://podcast-api.netlify.app/id/${show}`
         );
         const data = await response.json();
-        setShowData(data);
+        setShowData(data); //store data in usestate 
         setLoading(false);
       } catch (error) {
         console.error('Something went wrong. Please try again.', error);
       }
     };
-
+    
     fetchShowDetails();
   }, [show]);
 
   useEffect(() => {
-    if (showData) {
-      const seasonData = showData.seasons.find(
-        (season) => season.season === selectedSeason
-      );
+    if (showData) {       // Use the 'find' method to locate a specific season within the 'seasons' array
+      const seasonData = showData.seasons.find((season) => season.season === selectedSeason);
       setSelectedSeasonData(seasonData || null);
     }
   }, [selectedSeason, showData]);
 
   const handleSelectSeason = (seasonNumber) => {
     setSelectedSeason(seasonNumber);
-    if (showData) {
+    if (showData) {       // Use the 'find' method to locate the season within the 'seasons' array that matches the provided 'seasonNumber'
       const seasonData = showData.seasons.find(
         (season) => season.season === seasonNumber
       );
@@ -85,9 +77,9 @@ const SinglePodcast = ({
   };
 
   const episodeIsFavorited = (episode) => {
-    if (selectedSeasonData && showData) {
+    if (selectedSeasonData && showData) {    // Check if both 'selectedSeasonData' and 'showData' are available
       const compositeKey = `${showData.id}-${selectedSeasonData.season}-${episode.episode}`;
-      return favoriteEpisodes.includes(compositeKey);
+      return favoriteEpisodes.includes(compositeKey); // Check if the composite key is included in the 'favoriteEpisodes' array
     }
     return false;
   };
@@ -145,24 +137,8 @@ const SinglePodcast = ({
                     {episodeIsFavorited(episode) ? (
                       <AiFillHeart
                         className="favourite-icon"
-                        onClick={() =>
-                          {
-
-                          toggleFavorite(episode, selectedSeasonData, showData)
-                            
-                            const rite= async () => {
-                            
-                              const { data, error } = await supabase
-                                .from('podcast')
-                                .insert({
-                                  title: episode.title,
-                                 description: episode.description, 
-                                episode: episode.episode,
-                                audio: episode.file
-                                })
-                            }
-                            rite()
-                          }
+                        onClick={() => {
+                          toggleFavorite(episode, selectedSeasonData, showData) }
                         }
                       />
                     ) : (
@@ -176,7 +152,22 @@ const SinglePodcast = ({
                     <p className="episode-description">{episode.description}</p>
                     <Button
                       className="play-button"
-                      onClick={() => handlePlayEpisode(episode)}
+                      onClick={() => {
+                       handlePlayEpisode(episode)
+                       const rite= async () => {
+                          
+                        const { data, error } = await supabase
+                          .from('podcast')
+                          .insert({
+                            title: episode.title,
+                            description: episode.description, 
+                          episode: episode.episode,
+                          audio: episode.file
+                          })
+                      }
+                      rite()
+                      }}
+                  
                       variant="third"
                     >
                       <FontAwesomeIcon icon={faPlay} />

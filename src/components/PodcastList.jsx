@@ -32,18 +32,20 @@ const PodcastList = ({ onShowClick }) => {
     };
 
     fetchShows();
-  }, []);
+  }, []); //use dependency so that it only renders once
 
   useEffect(() => {
     const filtered = shows.filter((show) => {
-      const titleMatch = show.title
+      const titleMatch = show.title             // Check if the lowercase show title includes the lowercase search input
         .toLowerCase()
         .includes(filterInput.toLowerCase());
 
+        // If no genres are selected, return the title matching condition
       if (selectedGenres.length === 0) {
         return titleMatch;
       }
 
+       // Return true if title matches and at least one selected genre matches
       return (
         titleMatch &&
         show.genres.some((genreId) => selectedGenres.includes(genreId))
@@ -57,7 +59,7 @@ const PodcastList = ({ onShowClick }) => {
     );
 
     setFilteredShows(sorted);
-  }, [filterInput, selectedGenres, shows, sortOrder]);
+  }, [filterInput, selectedGenres, shows, sortOrder]); // function only runs if these are defined
 
   useEffect(() => {
     const sortedRecentness = filteredShows.sort((a, b) =>
@@ -68,7 +70,7 @@ const PodcastList = ({ onShowClick }) => {
     setFilteredShows(sortedRecentness);
   }, [filteredShows, sortOrderRecentness]);
 
-  const handleShowClick = (podcastId) => {
+  const handleShowClick = (podcastId) => {  //collects the shows id when a show is clicked,
     onShowClick(podcastId);
   };
 
@@ -82,13 +84,13 @@ const PodcastList = ({ onShowClick }) => {
     }
   };
 
-  const handleFilterInputChange = (event) => {
+  const handleFilterInputChange = (event) => { //targets the value in search-input 
     setFilterInput(event.target.value);
   };
 
   const getGenreTitles = (genreIds) =>
-    genreIds.map((genreId) => (
-      <span className="genre-pill" key={genreId}>
+    genreIds.map((genreId) => (           //maps over the genres to separated the numbers
+      <span className="genre-pill" key={genreId}> 
         {genreList[genreId]}
       </span>
     ));

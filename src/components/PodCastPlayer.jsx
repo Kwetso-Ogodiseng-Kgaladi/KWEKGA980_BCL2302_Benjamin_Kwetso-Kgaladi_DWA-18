@@ -10,16 +10,16 @@ const PodcastPlayer = () => {
 
   const audioRef = useRef(null);
 
-  useEffect(() => {
-    if (selectedEpisode) {
-      const { file } = selectedEpisode;
-      if (file) {
-        const fileURL = URL.createObjectURL(file);
-        audioRef.current.src = fileURL;
-        audioRef.current.play();
-      }
-    }
-  }, [selectedEpisode]);
+  // useEffect(() => {
+  //   if (selectedEpisode) {
+  //     const { file } = selectedEpisode;
+  //     if (file) {
+  //       const fileURL = URL.createObjectURL(file);
+  //       audioRef.current.src = fileURL;
+  //       audioRef.current.play();
+  //     }
+  //   }
+  // }, [selectedEpisode]);
 
   if (!selectedEpisode) {
     return (
@@ -30,6 +30,23 @@ const PodcastPlayer = () => {
       </div>
     );
   }
+
+    useEffect(()=>{
+      const prompt =(event) =>{
+        if(audioRef.current && !audioRef.current.paused){
+          event.preventDefault()
+          event.returnValue = ""
+          return ""
+        }
+
+      }
+      window.addEventListener("beforeunload", prompt)
+      return () =>{
+        window.removeEventListener("beforeunload", prompt)
+      }
+    },[]
+    )
+
 
   return (
     <PodcastPlayerStyles>
